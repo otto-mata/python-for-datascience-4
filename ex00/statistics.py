@@ -1,12 +1,14 @@
-from typing import Any
 import math
+from typing import Literal
 
 
 def __mean(arr: list[float]):
+    """Return the mean value of an array of numbers"""
     return sum(arr) / len(arr)
 
 
 def __median(arr: list[float]):
+    """Return the median value of an array of numbers"""
     if not len(arr) & 1:
         return arr[(len(arr) + 1) // 2]
     else:
@@ -14,6 +16,7 @@ def __median(arr: list[float]):
 
 
 def __quartile(arr: list[float]):
+    """Return the first and third quartiles of an array of numbers"""
     q: list[float] = [0, 0]
     if not len(arr) & 1:
         q[0] = arr[(len(arr) + 1) // 4]
@@ -25,6 +28,7 @@ def __quartile(arr: list[float]):
 
 
 def __var(arr: list[float]):
+    """Return the variance value for an array of numbers"""
     m = __mean(arr)
     var = (
         sum(
@@ -39,11 +43,18 @@ def __var(arr: list[float]):
 
 
 def __std(arr: list[float]):
-
+    """Return the standrd deviation of an array of numbers"""
     return math.sqrt(__var(arr))
 
 
-def ft_statistics(*args: Any, **kwargs: Any) -> None:
+def ft_statistics(
+    *args: float | int,
+    **kwargs: Literal["mean", "median", "quartile", "std", "var"]
+) -> None:
+    """Print the mean, median, first and third quartile, standard deviation
+    and variance of an array of numbers. Which data to print can be chosen
+    by passing the name of the operation as a value of any keyword argument.
+    The name of the keyword arguments does not matter."""
     if any(filter(lambda i: not isinstance(i, (int, float)), args)):
         print("ERROR")
         return
